@@ -1,0 +1,56 @@
+﻿body {
+	margin:0;
+	padding:0;
+	width:100%;
+	color:#ffffff;
+	font:normal 14px/1.5em "Liberation sans", Arial, Helvetica, sans-serif;
+	background:#fff url(main_bg.gif) repeat-x left top;
+    font-size: 16px;
+}
+html {
+	padding:0;
+	margin:0;
+}
+h1 {
+	margin:0;
+	padding:32px 0 0;
+	line-height:1.2em;
+	text-transform:none;
+    color:#fff;
+	text-decoration:none;
+    letter-spacing:-1px;
+    text-align:center;
+    line-height: 1.2em;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 46px;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 53px;
+    width: 1337px;
+}
+table{ 
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse:separate;
+    border: 1px solid black;
+    border-spacing:2px;
+}
+th{
+     background-color:#a9b7bd;
+}
+tr strong{
+    font-size:16px;
+}
+td{
+    padding:1px;
+}
+a{
+   font:normal 18px/1.5em "Liberation sans", Arial, Helvetica, sans-serif;
+   text-align:center;
+}
+select{
+}
+audio.casual {
+    visibility: hidden;
+}

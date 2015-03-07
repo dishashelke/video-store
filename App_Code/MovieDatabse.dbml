@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="lab6Database" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\lab6Database.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="lab6DatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Genre" Member="Genres">
+    <Type Name="Genre">
+      <Column Name="genreId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Genre_MovieGenre" Member="MovieGenres" ThisKey="genreId" OtherKey="genreId" Type="MovieGenre" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MovieGenre" Member="MovieGenres">
+    <Type Name="MovieGenre">
+      <Column Name="movieId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="genreId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Genre_MovieGenre" Member="Genre" ThisKey="genreId" OtherKey="genreId" Type="Genre" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Movy_MovieGenre" Member="Movy" ThisKey="movieId" OtherKey="movieId" Type="Movy" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Movies" Member="Movies">
+    <Type Name="Movy">
+      <Column Name="movieId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="releaseYear" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="language" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="length" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="director" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Movy_MovieGenre" Member="MovieGenres" ThisKey="movieId" OtherKey="movieId" Type="MovieGenre" />
+      <Association Name="Movy_Performer" Member="Performers" ThisKey="movieId" OtherKey="movieId" Type="Performer" />
+      <Association Name="PersonRole_Movy" Member="PersonRole" ThisKey="director" OtherKey="personRoleId" Type="PersonRole" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Person" Member="Persons">
+    <Type Name="Person">
+      <Column Name="personId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="gender" Type="System.String" DbType="NChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="nationality" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="birthYear" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Person_PersonRole" Member="PersonRoles" ThisKey="personId" OtherKey="personId" Type="PersonRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Performers" Member="Performers">
+    <Type Name="Performer">
+      <Column Name="movieId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="personRoleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Movy_Performer" Member="Movy" ThisKey="movieId" OtherKey="movieId" Type="Movy" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="PersonRole_Performer" Member="PersonRole" ThisKey="personRoleId" OtherKey="personRoleId" Type="PersonRole" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonRole" Member="PersonRoles">
+    <Type Name="PersonRole">
+      <Column Name="personRoleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="personId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="roleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="PersonRole_Movy" Member="Movies" ThisKey="personRoleId" OtherKey="director" Type="Movy" />
+      <Association Name="PersonRole_Performer" Member="Performers" ThisKey="personRoleId" OtherKey="personRoleId" Type="Performer" />
+      <Association Name="Person_PersonRole" Member="Person" ThisKey="personId" OtherKey="personId" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Role_PersonRole" Member="Role" ThisKey="roleId" OtherKey="roleId" Type="Role" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Roles" Member="Roles">
+    <Type Name="Role">
+      <Column Name="roleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Role_PersonRole" Member="PersonRoles" ThisKey="roleId" OtherKey="roleId" Type="PersonRole" />
+    </Type>
+  </Table>
+</Database>
